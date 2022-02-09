@@ -4,5 +4,5 @@ A little reminder which will run in the background to remind you about anything 
 
 ## How to use
 
-Please enter in your advisory initiative, and support time in the variables specifeid, it must be in H:M format for it to work.
-edit more stuff in the varibles for you likings :)
+Please enter in your advisory initiative, and support time in the variables specified, it must be in H:M format for it to work (in 24 hour clock system).
+edit more stuff in the variables for you likings :)
