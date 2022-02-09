@@ -2,80 +2,60 @@ try:
     from plyer import notification
     from datetime import datetime as date
     import time as t
+    import gkeepapi
+
 except:
-    import os
+    import pip
+    import time as t
+    import sys
+
     location = input("SITE PACKAGES LOCATION: ")
-    os.system(f"pip install plyer -target={location}")
+    pip.main(["install", f"--target={location}", "plyer", "gkeepapi"])
     print("SHUTTING APP DOWN... (please reopen to use)")
     t.sleep(3.0)
-    exit()
-
-advisory_supp_time_start = "" # some value
-if advisory_supp_time_start == "": raise ValueError("Add a valid time for all of the time vars for the reminder to work")
-advisory_supp_time_end = "" # some value
-if advisory_supp_time_end == "": raise ValueError("Add a valid time for all of the time vars for the reminder to work")
-advisory_init_time_start = "" # some value
-if advisory_init_time_start == "": raise ValueError("Add a valid time for all of the time vars for the reminder to work")
-advisory_init_time_end = "" # some value
-if advisory_init_time_end == "": raise ValueError("Add a valid time for all of the time vars for the reminder to work")
-
-today = date.today().strftime("%A").lower()
-time = date.now().strftime("%H:%M")
-
-init_class = ["tuesday", "thursday"]
-sup_class = ["monday", "wednesday", "friday"]
-
-while True:
-    for i in init_class:
-        if today == i:
-            if time == advisory_init_time_start:
-                notification.notify(
-                    title="Advisory Initiative Work",
-                    message="Hi, you may take 6 minutes to plan out what you want todo / what to do at home.",
-                    app_name="Reminder",
-                    timeout=50,
-                )
-                t.sleep(360.0)
-                notification.notify(
-                    title="Advisory Initiative Work",
-                    message="Hi, you may work on what you planned to do in the previous 6 minutes.",
-                    app_name="Reminder",
-                    timeout=50,
-                )
-                while True:
-                    if time == advisory_init_time_end:
-                        notification.notify(
-                            title="Advisory Initiative Work",
-                            message="Hi, you may stop working on what you were doing, since its time for you to go",
-                            app_name="Reminder",
-                            timeout=50,
-                        )
-                        break
-
-    for i in sup_class:
-        if today == i:
-            if time == advisory_supp_time_start:
-                notification.notify(
-                    title="Advisory Support Work",
-                    message="Hi, you may take 6 minutes to plan out what you want todo / what to do at home.",
-                    app_name="Reminder",
-                    timeout=50,
-                )
-                t.sleep(360.0)
-                notification.notify(
-                    title="Advisory Support Work",
-                    message="Hi, you may work on what you planned to do in the previous 6 minutes.",
-                    app_name="Reminder",
-                    timeout=50,
-                )
-                while True:
-                    if time == advisory_supp_time_end:
-                        notification.notify(
-                            title="Advisory Support Work",
-                            message="Hi, you may stop working on what you were doing, since its time for you to go",
-                            app_name="Reminder",
-                            timeout=50,
-                        )
-                        break
+    sys.exit(0)
 
 
+notification.notify(
+    title="Advisory Work",
+    message="Hi, please edit the TODO DURING ADVISORY note in 6 minutes for what you plan todo, enter stuff in TODO HOME which you would like todo at home.",
+    timeout=10,
+)
+t.sleep(360.0)
+notification.notify(
+    title="Alert",
+    message="Hi, please save your keep status, get ready to do the work in it.",
+    timeout=10,
+)
+t.sleep(10.0)
+
+# look through what the user has entered:
+tasks = {}
+
+keep = gkeepapi.Keep()
+credentials = open("credentials/cred.txt", "r").readlines()
+keep.login(credentials[0], credentials[1])
+
+TODO = keep.get("1azgd59O9ryNeIbTyVis5sXr9vyBHts8mWOFQ5-bwU8itBjzwCkqFW5KXVslEAaE")
+
+prev = ""
+for i in TODO.text.split():
+    if "m" in i:
+        tasks[prev.removesuffix(":")] = i.removesuffix("m")
+    elif ":" in i:
+        prev = i
+
+
+for i in tasks:
+    notification.notify(
+        title=f"{i}",
+        message=f"Hi, you may start doing {i} for {tasks[i]} minutes.",
+        timeout=10,
+    )
+    t.sleep(float(float(tasks[i])*60.0))
+
+notification.notify(
+        title=f"Your Work Is Complete!",
+        message=f"Hi, you may wrap up what your doing since you've completed all your work!",
+        timeout=10,
+)
