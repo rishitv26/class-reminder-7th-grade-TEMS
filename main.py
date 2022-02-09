@@ -36,7 +36,7 @@ keep = gkeepapi.Keep()
 credentials = open("credentials/cred.txt", "r").readlines()
 keep.login(credentials[0], credentials[1])
 
-TODO = keep.get("1azgd59O9ryNeIbTyVis5sXr9vyBHts8mWOFQ5-bwU8itBjzwCkqFW5KXVslEAaE")
+TODO = keep.get(credentials[3])
 
 prev = ""
 for i in TODO.text.split():
