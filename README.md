@@ -6,6 +6,8 @@ A little reminder which will run in the background to remind you about anything 
 
 Please enter in your email id in the first line of the credentials/cred.txt file, the enter your password for your gmail account right under it. Then, make a note in your google keep application called "TODO DURING ADVISORY", and get its id which is usually the gibberish after https://keep.google.com/u/2/#NOTE/(where the id is)/. Take that id and add it right under the password. Your calibration is complete :)
 
+Note: If you virtual envoirment is not a virtualenv envoirment, you will have to install _**gkeepapi**_ and _**plyer**_ modules.
+
 ## How to get it working:
 
 you must have:
