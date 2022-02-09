@@ -1,6 +1,14 @@
-from plyer import notification
-from datetime import datetime as date
-import time as t
+try:
+    from plyer import notification
+    from datetime import datetime as date
+    import time as t
+except:
+    import os
+    location = input("SITE PACKAGES LOCATION: ")
+    os.system(f"pip install plyer -target={location}")
+    print("SHUTTING APP DOWN... (please reopen to use)")
+    t.sleep(3.0)
+    exit()
 
 advisory_supp_time_start = "" # some value
 if advisory_supp_time_start == "": raise ValueError("Add a valid time for all of the time vars for the reminder to work")
