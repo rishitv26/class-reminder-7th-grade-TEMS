@@ -23,3 +23,17 @@ current path of venv folder/Lib/site-packages. You will have to rerun the file a
 after saying "SHUTTING APP DOWN... (please reopen to use)", which is not a problem, just ignore them.
 
 If you want it to run in the background, please click on the .bat file to do so, to close it, go to the task manager and kill the python app task.
+
+## How to use it:
+
+It will prompt you to plan your TODO note, which needs to be done in a specific structure.
+it goes like this:
+
+WORK: (some float)m
+
+for example:
+
+JAN_WORK: 15m
+
+note that you must translate your time you want to comeplete in in minutes.
+then do what it says after that :)
