@@ -12,13 +12,14 @@ except:
     location = input("SITE PACKAGES LOCATION: ")
     pip.main(["install", f"--target={location}", "plyer", "gkeepapi"])
     print("SHUTTING APP DOWN... (please reopen to use)")
-    t.sleep(3.0)
+    print("Press Enter to Continue...")
+    input("")
     sys.exit(0)
 
 
 notification.notify(
     title="Advisory Work",
-    message="Hi, please edit the TODO DURING ADVISORY note in 6 minutes for what you plan todo, enter stuff in TODO HOME which you would like todo at home.",
+    message="Hi, please edit the TODO DURING ADVISORY note in 6 minutes for what you plan to do right now",
     timeout=10,
 )
 t.sleep(360.0)
