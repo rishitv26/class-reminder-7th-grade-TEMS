@@ -36,4 +36,4 @@ for example:
 JAN_WORK: 15m
 
 note that you must translate your time you want to comeplete in in minutes.
-then do what it says after that :)
+it will then loop through all your tasks and remind you after the givin time.
